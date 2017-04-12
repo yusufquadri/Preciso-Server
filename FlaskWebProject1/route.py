@@ -3,6 +3,7 @@ from app import app
 from flask import request
 from flask import render_template
 from flask.templating import render_template
+import basic_sentiment_analysis 
 @app.route('/')
 def temp():
     user = "yusuf"
@@ -17,16 +18,18 @@ def register():
 def spell():
     return render_template("Spell.html")
 
-@app.route('/spell1/',methods =["GET"] )
+@app.route('/spell1/',methods =["POST"] )
 def spell1():
-    user = request.args.get('param')
+    global user
+    user = request.values.get('param')
     print(user)
+    user = basic_sentiment_analysis.abcd(user)
     #test1(user)
     return render_template("test.html",user = user)
     
 @app.route("/test1")
 def test1():
-    user = "yeahhhhhh "
+    #user = "yeahhhhhh "
     return render_template("test1.html",user=user)
 #@app.route('/temp',methods=["POST"])
 
